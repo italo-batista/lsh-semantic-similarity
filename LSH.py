@@ -1,15 +1,14 @@
+from random import shuffle
 
 # coding: utf-8
 
-from random import shuffle
-from random import randint
 import math
 
 class LSH(object):
     
-    def __init__(self):
-        return      
-    
+    def __init__(self):        
+        self.dr = False
+                
     def set_sparse_matrix(self, sparse_matrix):
         """Set the sparse matrix in which the lsh algorithm is runned."""
         
@@ -134,11 +133,24 @@ class LSH(object):
             
             for j in range(i+1, n_docs, 1):
                 
-                doc_b = set([(sig_matrix[j][s], s) for s in range(len(sig_matrix[j]))])
+                doc_b = set([(sig_matrix[j][s], s) for s in range(len(sig_matrix[j]))])            
                 jaccard_similarity = self._get_jaccard_similarity(doc_a, doc_b, n_hashes)
                 similarity_matrix[i][j] = jaccard_similarity
-        
+                
         return similarity_matrix
                 
     def _get_jaccard_similarity(self, setA, setB, n_hashes):
-        return len(setA & setB) / n_hashes        
+        return len(setA & setB) / float(n_hashes)
+        
+    def get_similarity(self, matrix):
+        
+        self.set_sparse_matrix(matrix)
+        
+        if self.dr == False:
+            dimensionality_reduction = int(round( (len(matrix[0]) * 3/4) )) 
+            self.set_dimensionality_reduction(dimensionality_reduction)
+
+        permutation_matrix = self._get_permutation_matrix()
+        signature_matrix = self._get_signature_matrix(permutation_matrix)        
+        similarity_matrix = self._get_similarity_matrix(signature_matrix)
+        return similarity_matrix
