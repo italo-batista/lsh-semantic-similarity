@@ -1,4 +1,6 @@
+# Locality Sensitive Hashing for semantic similarity
 
+###### [![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)  vs 3.x
 
 LSH (Locality Sensitive Hashing) is primarily used to find, given a large set of documents, the near-duplicates among them.
 It can use hamming distance, jaccard coefficient, edit distance or other distance notion. 
