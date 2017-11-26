@@ -159,7 +159,7 @@ class LSH(object):
             self.set_sparse_matrix(matrix)
 
         else:
-            tfidf = TFIDF(matrix, 'pt')
+            tfidf = TFIDF(matrix, langue)
             sparse_matrix = tfidf.get_sparse_matrix()
             self.set_sparse_matrix(sparse_matrix)
 
